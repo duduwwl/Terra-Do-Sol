@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Terra do Sol</title>
+    <meta name="robots" content="noindex" />
+    <script>
+      // O GitHub Pages não conhece as rotas internas da loja (ex.: /produtos).
+      // Guardamos a rota pedida e voltamos para a raiz do site, que a restaura.
+      ;(function () {
+        var base = '/Terra-Do-Sol/'
+        var l = window.location
+        if (l.pathname.toLowerCase().indexOf(base.toLowerCase()) === 0) {
+          sessionStorage.setItem('tds:redirect', l.pathname + l.search + l.hash)
+          l.replace(base)
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <p>Carregando a página… Se nada acontecer, <a href="/Terra-Do-Sol/">volte para a loja</a>.</p>
+  </body>
+</html>

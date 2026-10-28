@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://duduwwl.github.io/Terra-Do-Sol/sitemap.xml

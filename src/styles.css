@@ -139,6 +139,9 @@
 .sun-rise {
   animation: nascer 1.4s var(--ease-sol) both;
 }
+.sem-animacao :is(.hero-word, .hero-rise, .sun-rise) {
+  animation: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {

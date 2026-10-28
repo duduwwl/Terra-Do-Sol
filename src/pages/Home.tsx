@@ -1,4 +1,5 @@
 import { MapPin, MessageCircle, Phone, Truck } from 'lucide-react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ProductCard } from '../components/ProductCard'
 import { ProductImage } from '../components/ProductImage'
@@ -26,6 +27,16 @@ const BUTTER = ['vestido-curto-amarelo-manteiga', 'conjunto-blazer-calca-amarelo
 export function HomePage() {
   usePageMeta('', 'Terra do Sol, moda feminina em Lavras-MG desde 1988. Vestidos, conjuntos, blusas e alfaiataria com envio para todo o Brasil.')
   const fresh = products.filter((p) => p.isNew).slice(0, 8)
+
+  // segurança: se o navegador não estiver desenhando quadros (aba em segundo plano, captura de tela),
+  // mostra a abertura sem animação para o texto nunca ficar invisível
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      const stuck = document.getAnimations?.().some((a) => a.playState === 'running' && (Number(a.currentTime) || 0) === 0)
+      if (stuck) document.documentElement.classList.add('sem-animacao')
+    }, 2500)
+    return () => window.clearTimeout(t)
+  }, [])
 
   return (
     <>

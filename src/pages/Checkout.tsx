@@ -167,7 +167,7 @@ export default function CheckoutPage() {
   const [deliveryErr, setDeliveryErr] = useState<string | null>(null)
   const [address, setAddress] = useState(emptyAddress)
   const [addressErr, setAddressErr] = useState<Errors<AddressForm>>({})
-  const [cepState, setCepState] = useState<'idle' | 'loading' | 'ok' | 'erro'>('idle')
+  const [cepState, setCepState] = useState<'idle' | 'loading' | 'ok' | 'erro' | 'nao-encontrado'>('idle')
   const [method, setMethod] = useState<Method>('pix')
   const [card, setCard] = useState(emptyCard)
   const [cardErr, setCardErr] = useState<Errors<CardForm>>({})
@@ -212,7 +212,7 @@ export default function CheckoutPage() {
         setAddressErr((e) => ({ ...e, cep: undefined, street: undefined, district: undefined, city: undefined, state: undefined }))
         setCepState('ok')
       })
-      .catch(() => setCepState('erro'))
+      .catch((err: Error) => setCepState(err.message === 'nao-encontrado' ? 'nao-encontrado' : 'erro'))
       .finally(() => window.clearTimeout(timer))
     return () => {
       ctrl.abort()
@@ -479,6 +479,7 @@ export default function CheckoutPage() {
                           )}
                           {cepState === 'ok' && 'Endereço preenchido pelo CEP. Confira.'}
                           {cepState === 'erro' && 'Não foi possível buscar o CEP. Preencha o endereço manualmente.'}
+                          {cepState === 'nao-encontrado' && 'CEP não encontrado. Confira o número ou preencha o endereço manualmente.'}
                         </p>
                       </div>
                       <Field className="sm:col-span-4" label="Rua ou avenida" name="rua" autoComplete="address-line1" value={address.street} onChange={(e) => setAddress({ ...address, street: e.target.value })} error={addressErr.street} />

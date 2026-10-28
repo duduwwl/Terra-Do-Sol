@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from 'motion/react'
 import { MapPin, MessageCircle, Phone, Truck } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ProductCard } from '../components/ProductCard'
@@ -26,7 +25,6 @@ const BUTTER = ['vestido-curto-amarelo-manteiga', 'conjunto-blazer-calca-amarelo
 
 export function HomePage() {
   usePageMeta('', 'Terra do Sol, moda feminina em Lavras-MG desde 1988. Vestidos, conjuntos, blusas e alfaiataria com envio para todo o Brasil.')
-  const reduce = useReducedMotion()
   const fresh = products.filter((p) => p.isNew).slice(0, 8)
 
   return (
@@ -40,23 +38,14 @@ export function HomePage() {
               <span aria-hidden="true">
                 {'Moda feminina em Lavras desde 1988'.split(' ').map((w, i) => (
                   <span key={i}>
-                    <motion.span
-                      className="inline-block"
-                      initial={reduce ? false : { opacity: 0, y: 14, filter: 'blur(6px)' }}
-                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                      transition={{ delay: 0.08 * i, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    >
+                    <span className="hero-word" style={{ animationDelay: `${80 * i}ms` }}>
                       {w}
-                    </motion.span>{' '}
+                    </span>{' '}
                   </span>
                 ))}
               </span>
             </h1>
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <div className="hero-rise" style={{ animationDelay: '480ms' }}>
               <p className="mt-6 max-w-[46ch] text-lg text-palmeira-2">
                 Vestidos, conjuntos e alfaiataria que chegam às nossas duas lojas no centro de Lavras. Escolha por aqui e receba onde estiver: enviamos para todo o Brasil.
               </p>
@@ -68,18 +57,14 @@ export function HomePage() {
                   Ver as novidades
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           <div className="relative mx-auto w-full max-w-[24rem] md:col-span-6 md:mr-0 md:max-w-[30rem] lg:col-span-5 lg:col-start-8">
             {/* o sol */}
-            <motion.div
-              aria-hidden="true"
-              className="absolute left-1/2 -top-[7%] aspect-square w-[104%] -translate-x-1/2 rounded-full bg-manteiga"
-              initial={reduce ? false : { y: '22%', opacity: 0.4 }}
-              animate={{ y: '0%', opacity: 1 }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-            />
+            <div aria-hidden="true" className="absolute left-1/2 -top-[7%] aspect-square w-[104%] -translate-x-1/2">
+              <div className="sun-rise h-full w-full rounded-full bg-manteiga" />
+            </div>
             <Link to={`/produto/${HERO.slug}`} className="group relative block" aria-label={`${HERO.name}, ver detalhes`}>
               <div className="arch relative overflow-hidden bg-linho">
                 <ProductImage slug={HERO.slug} alt={HERO.name} priority sizes="(min-width: 768px) 30rem, 90vw" className="transition-transform duration-700 group-hover:scale-[1.02]" />

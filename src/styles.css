@@ -109,6 +109,37 @@
   }
 }
 
+/* abertura: animações em CSS para o texto aparecer mesmo antes do JavaScript de animação */
+@keyframes palavra {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+  }
+}
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes nascer {
+  from {
+    opacity: 0.4;
+    transform: translateY(22%);
+  }
+}
+.hero-word {
+  display: inline-block;
+  animation: palavra 0.6s var(--ease-sol) both;
+}
+.hero-rise {
+  animation: subir 0.6s var(--ease-sol) both;
+}
+.sun-rise {
+  animation: nascer 1.4s var(--ease-sol) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

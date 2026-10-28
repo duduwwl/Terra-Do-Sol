@@ -14,6 +14,6 @@ export const STORE = {
 
 /** As duas lojas físicas citadas na biografia. */
 export const STORES = [
-  { id: 'misseno', label: 'Rua Misseno de Pádua', address: 'R. Misseno de Pádua, 661 — Lavras, MG' },
-  { id: 'leonardo', label: 'Praça Leonardo Venerando', address: 'Pç. Leonardo Venerando, 386 — Lavras, MG' },
+  { id: 'misseno', label: 'Rua Misseno de Pádua', address: 'R. Misseno de Pádua, 661 — Lavras, MG' },
+  { id: 'leonardo', label: 'Praça Leonardo Venerando', address: 'Pç. Leonardo Venerando, 386 — Lavras, MG' },
 ]

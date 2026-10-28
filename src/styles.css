@@ -95,7 +95,7 @@
     @apply mb-1.5 block text-sm font-semibold text-palmeira;
   }
   .field {
-    @apply block min-h-12 w-full rounded-lg border border-linha bg-white px-3.5 text-base text-palmeira placeholder:text-palmeira-2/60 transition-colors outline-none focus:border-palmeira focus:ring-2 focus:ring-palmeira/15 aria-[invalid=true]:border-alerta aria-[invalid=true]:ring-alerta/15;
+    @apply block min-h-12 w-full rounded-lg border border-linha bg-white px-3.5 text-base text-palmeira placeholder:text-palmeira-2/90 transition-colors outline-none focus:border-palmeira focus:ring-2 focus:ring-palmeira/15 aria-[invalid=true]:border-alerta aria-[invalid=true]:ring-alerta/15;
   }
   .field-error {
     @apply mt-1.5 text-sm text-alerta;

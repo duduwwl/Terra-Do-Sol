@@ -40,7 +40,7 @@ function SearchForm({ onDone, autoFocus, id }: { onDone?: () => void; autoFocus?
         placeholder="Buscar vestido, linho, tricô…"
         autoFocus={autoFocus}
         data-autofocus={autoFocus ? '' : undefined}
-        className="h-11 w-full rounded-full border border-linha bg-white pr-4 pl-10 text-[0.95rem] outline-none placeholder:text-palmeira-2/70 focus:border-palmeira focus:ring-2 focus:ring-palmeira/15"
+        className="h-11 w-full rounded-full border border-linha bg-white pr-4 pl-10 text-[0.95rem] outline-none placeholder:text-palmeira-2/90 focus:border-palmeira focus:ring-2 focus:ring-palmeira/15"
       />
     </form>
   )
@@ -87,7 +87,7 @@ export function Header() {
                     to={item.to}
                     aria-current={isActive(item.match) ? 'page' : undefined}
                     className={cn(
-                      'relative inline-flex h-11 items-center rounded-full px-3.5 text-[0.95rem] text-palmeira-2 transition-colors hover:text-palmeira',
+                      'relative inline-flex h-11 items-center rounded-full px-3.5 text-[0.95rem] whitespace-nowrap text-palmeira-2 transition-colors hover:text-palmeira',
                       isActive(item.match) && 'text-palmeira after:absolute after:inset-x-3.5 after:bottom-2 after:h-[2px] after:rounded-full after:bg-manteiga',
                     )}
                   >

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { Check, ExternalLink, Info } from 'lucide-react'
+import { Check, ExternalLink, Info, Plus } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { AnimatedBackground } from '../components/motion/animated-background'
@@ -31,6 +31,17 @@ function ProductView({ slug }: { slug: string }) {
   const [added, setAdded] = useState(false)
   const errorRef = useRef<HTMLParagraphElement>(null)
   const scroller = useRef<HTMLDivElement>(null)
+  const buyRef = useRef<HTMLButtonElement>(null)
+  const [buyBelow, setBuyBelow] = useState(false)
+
+  // no celular o botão de compra fica abaixo das fotos: mostra uma barra fixa até ele aparecer
+  useEffect(() => {
+    const el = buyRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => setBuyBelow(!e.isIntersecting && e.boundingClientRect.top > 0))
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   usePageMeta(product.name, `${product.name} na Terra do Sol, Lavras-MG. ${product.description}`)
 
@@ -215,7 +226,7 @@ function ProductView({ slug }: { slug: string }) {
                 )}
               </AnimatePresence>
 
-              <button type="submit" className={cn('btn w-full text-base', added ? 'btn-sun' : 'btn-primary')} data-testid="adicionar">
+              <button ref={buyRef} type="submit" className={cn('btn w-full text-base', added ? 'btn-sun' : 'btn-primary')} data-testid="adicionar">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span
                     key={added ? 'ok' : 'add'}
@@ -240,14 +251,14 @@ function ProductView({ slug }: { slug: string }) {
             <div className="mt-10 divide-y divide-linha border-y border-linha">
               <details open className="group py-4">
                 <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
-                  Sobre a peça <span className="text-palmeira-2 transition group-open:rotate-45">+</span>
+                  Sobre a peça <Plus className="h-4 w-4 shrink-0 text-palmeira-2 transition group-open:rotate-45" aria-hidden="true" />
                 </summary>
                 <p className="mt-3 text-palmeira-2">{product.description}</p>
                 {!product.captionBased && <p className="mt-2 text-xs text-palmeira-2">A publicação não tinha legenda; descrição feita a partir da foto.</p>}
               </details>
               <details className="group py-4">
                 <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
-                  Entrega e retirada <span className="text-palmeira-2 transition group-open:rotate-45">+</span>
+                  Entrega e retirada <Plus className="h-4 w-4 shrink-0 text-palmeira-2 transition group-open:rotate-45" aria-hidden="true" />
                 </summary>
                 <p className="mt-3 text-palmeira-2">
                   A Terra do Sol envia para todo o Brasil e tem duas lojas em Lavras. Nesta demonstração, o frete é simulado no checkout.
@@ -255,7 +266,7 @@ function ProductView({ slug }: { slug: string }) {
               </details>
               <details className="group py-4">
                 <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
-                  Dúvidas sobre medidas <span className="text-palmeira-2 transition group-open:rotate-45">+</span>
+                  Dúvidas sobre medidas <Plus className="h-4 w-4 shrink-0 text-palmeira-2 transition group-open:rotate-45" aria-hidden="true" />
                 </summary>
                 <p className="mt-3 text-palmeira-2">
                   Fale com a loja{' '}
@@ -292,6 +303,28 @@ function ProductView({ slug }: { slug: string }) {
           </div>
         </section>
       )}
+
+      <AnimatePresence>
+        {buyBelow && (
+          <motion.div
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-0 z-30 border-t border-linha bg-nuvem/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden"
+          >
+            <div className="flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm text-palmeira-2">{product.name}</p>
+                <p className="text-lg leading-tight">{formatBRL(product.price)}</p>
+              </div>
+              <button type="button" onClick={submit} className="btn btn-primary shrink-0">
+                Adicionar à sacola
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

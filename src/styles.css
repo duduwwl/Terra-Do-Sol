@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+
+/*
+ * Terra do Sol — direção de arte
+ * Base: o céu pintado dos ensaios recentes da loja (azul acinzentado) e a palmeira verde do logotipo.
+ * Acento único: o amarelo-manteiga, cor que a loja mais destacou na coleção de verão.
+ */
+@theme {
+  --font-display: 'Young Serif', 'Georgia', serif;
+  --font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+  --color-nuvem: #f6f7f4; /* fundo */
+  --color-ceu: #dde6e9; /* céu pintado */
+  --color-ceu-escuro: #b9cad1;
+  --color-palmeira: #1f3529; /* texto e ações */
+  --color-palmeira-2: #4c5c51; /* texto secundário */
+  --color-manteiga: #efd98b; /* acento */
+  --color-manteiga-claro: #f8efcd;
+  --color-linho: #e6e2d8;
+  --color-linha: #d3d9d2;
+  --color-alerta: #a23b2a;
+  --color-ok: #2f6b45;
+
+  --ease-sol: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgb(31 53 41 / 0.08);
+  }
+  select {
+    background-color: #fff;
+    color: var(--color-palmeira);
+  }
+  body {
+    @apply bg-nuvem font-sans text-palmeira antialiased;
+    font-size: 1rem;
+    line-height: 1.55;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-palmeira);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  ::selection {
+    background: var(--color-manteiga);
+    color: var(--color-palmeira);
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[84rem] px-4 sm:px-6 lg:px-10;
+  }
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-semibold transition-[background-color,color,transform,box-shadow] duration-200 select-none disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    @apply bg-palmeira text-nuvem hover:bg-[#2a4637];
+  }
+  .btn-sun {
+    @apply bg-manteiga text-palmeira hover:bg-[#e8cd70];
+  }
+  .btn-ghost {
+    @apply border border-palmeira/25 bg-transparent text-palmeira hover:border-palmeira/60 hover:bg-white/60;
+  }
+  .link {
+    @apply underline decoration-palmeira/30 decoration-1 underline-offset-4 transition-colors hover:decoration-palmeira;
+  }
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-palmeira;
+  }
+  .field {
+    @apply block min-h-12 w-full rounded-lg border border-linha bg-white px-3.5 text-base text-palmeira placeholder:text-palmeira-2/60 transition-colors outline-none focus:border-palmeira focus:ring-2 focus:ring-palmeira/15 aria-[invalid=true]:border-alerta aria-[invalid=true]:ring-alerta/15;
+  }
+  .field-error {
+    @apply mt-1.5 text-sm text-alerta;
+  }
+  .demo-tag {
+    @apply inline-flex items-center gap-1 rounded-full bg-ceu px-2.5 py-0.5 text-xs font-medium text-palmeira-2;
+  }
+  /* janela em arco, assinatura visual do site (o sol nascendo) */
+  .arch {
+    border-radius: 50% 50% 0 0 / 40% 40% 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -87,7 +87,7 @@ Para testar a versão publicada: `E2E_BASE_URL=https://duduwwl.github.io/Terra-D
 ## Publicação
 
 O workflow `.github/workflows/deploy.yml` roda lint, testes e build a cada push na `main` e publica `dist/`
-no GitHub Pages (Settings → Pages → Source: **GitHub Actions**). O caminho-base `/Terra-Do-Sol/` está em
+no branch `gh-pages` (Settings → Pages → Source: **Deploy from a branch**, branch `gh-pages`, pasta `/`). O caminho-base `/Terra-Do-Sol/` está em
 `vite.config.ts`, `public/404.html` e `index.html`; se o repositório mudar de nome, ajuste os três.
 
 As rotas internas (`/produtos`, `/checkout`…) funcionam ao abrir direto ou recarregar: o `404.html` guarda a
